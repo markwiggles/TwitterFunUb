@@ -25,11 +25,12 @@
                <h1>Twitter alert viewer</h1>
                <div id="input">
                    <form id="trackInput">
-                       <input type="text" name="trackWords" placeholder="enter tracking words with commas separating"value="" size="60" />
+                       <input type="text" name="trackWords" placeholder="enter tracking words with comma separated"value="" size="100" />
                        <input type="submit" value="Get Tweets" name="getTweets" />
                    </form>
                  
                    <form id="stopTweets">
+                       <input type="text" name="stop" value="8000" size="100" />
                        <input type="submit" value="Stop Tweets" name="stopTweets" />
                    </form>
                   
