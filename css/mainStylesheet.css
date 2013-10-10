@@ -1,0 +1,31 @@
+/* 
+    Document   : mainStylesheet
+    Created on : Oct 10, 2013, 12:48:14 PM
+    Author     : mark
+    Description:
+        main CSS for HTML pages
+*/
+
+root { 
+    display: block;
+}
+
+body{
+    background-color:#ccccff;
+    font-family: georgia, serif;
+}
+.hidden{
+    height:0px;
+    overflow:hidden;
+}
+#tweets, #header {
+    margin:0 auto;
+    width:400px;
+}
+#tweets div{
+    border:1px solid silver;
+    margin:5px;
+    padding:5px;
+    background-color:#fff;
+}
+
