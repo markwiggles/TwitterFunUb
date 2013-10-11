@@ -18,18 +18,18 @@ class FilterTrackConsumer extends OauthPhirehose {
     public function enqueueStatus($status) {     
         $tweet = json_decode($status); 
         storeTweetsInDatabase($tweet);
-        print $tweet->{'text'}."\n";
-        
+        print $tweet->{'text'}."\n";  
     }
 }
 
 // The OAuth credentials
-define("TWITTER_CONSUMER_KEY", "QIcl8A33EnpTpGPnpMmZQ");
-define("TWITTER_CONSUMER_SECRET", "Xdkpo2d5VGOooo19s23DmRmuQfzE1USLIiyed5AUAk");
-define("OAUTH_TOKEN", "543781426-vQHaUYV0qjbT9RomJHbXNcyPFpBdn4GdbX2LM8");
-define("OAUTH_SECRET", "7BDQbxjU6stVMVVOMnYfkgPp7GYtXmu187WuVbsC4");
+define("TWITTER_CONSUMER_KEY", "svZXJI1VwflpveNZcLKgw");
+define("TWITTER_CONSUMER_SECRET", "NR6GEcj09DCBn1K2nNtfYM4wp7bBHXnRkD2ekuI");
+define("OAUTH_TOKEN", "543781426-Q2Y6IugeGaoA9tGh5PrpkPH00MFtQ2PbqsiVHRN6");
+define("OAUTH_SECRET", "hVNkoq7IbpzmD3wi57gF2tUU8bbgZ3Kv9wKJ2JPk2o");
 
 $trackWords = unserialize($argv[1]);
+//$trackWords = array('justin bieber'); //test ie no-one more popular than Justin is there?
 
 // Create the stream object from above class and start streaming
 $sc = new FilterTrackConsumer(OAUTH_TOKEN, OAUTH_SECRET, Phirehose::METHOD_FILTER);
