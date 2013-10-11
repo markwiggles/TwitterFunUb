@@ -1,8 +1,10 @@
 
-// wait for the DOM to be loaded, then add ajax function to submit for starting tweets
 
+
+//global process id
 pid = null;
 
+// wait for the DOM to be loaded, then add ajax function to submit for starting tweets
 $(document).ready(function() {
 
     $("#trackInput").submit(function(event) {
@@ -12,14 +14,15 @@ $(document).ready(function() {
         var values = $(this).serialize();
 
         $.ajax({
-            url: 'start.php',
+            url: 'Start.php',
             method: 'post',
             data: values
         }).success(function(response) {
-            alert(response);
+            alert("tweets started with pid:" + response);
             pid = response;
         }).fail(function() {
             // Whoops; show an error.
+            alert("oops nothing happening here");
         });
     });
 });
@@ -31,16 +34,19 @@ $(document).ready(function() {
 
         event.preventDefault();
 
-        var values = $(this).serialize();
+        var values = 'stop=' + pid;
+
+        console.log(values);
 
         $.ajax({
-            url: 'stop.php',
+            url: 'Stop.php',
             method: 'post',
             data: values
         }).success(function(response) {
             alert(response);
         }).fail(function() {
             // Whoops; show an error.
+            alert("oops didn't stop for some reason");
         });
     });
 });
