@@ -16,7 +16,7 @@ $(document).ready(function() {
         $.ajax({
             url: 'Start.php',
             method: 'post',
-            data: values
+            data: values + "&pid=" + pid
         }).success(function(response) {
             alert("tweets started with pid:" + response);
             pid = response;
