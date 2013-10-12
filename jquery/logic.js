@@ -22,6 +22,7 @@ function addNew(item){
 
 function renderTweet(item){
 		importanceColor=getImportanceColor(item.followers_count);
+                sentimentColor=getSentimentColor(item.sentiment);
 		return '<div class="tweet" id="'+item.id+'">'+
                         '<img src="' + item.profile_image_url + '">' +
                 
@@ -30,12 +31,25 @@ function renderTweet(item){
 		item.text
 		+'</span><span class="created_at"><br /><a href="http://twitter.com/'+
 		item.screen_name+'/status/'+item.id+'">'+
-		item.created_at+'</span></div>';
+		item.created_at+'</a></span>'+ '<span class="sentiment"><br /><br /><b>Sentiment Analysis: </b><p style="color:'+sentimentColor+'">'+item.sentiment+'</p></span></div>';
 }
 
 function getImportanceColor(number){
 		rgb = 255-Math.floor(16*(Math.log(number+1)+1)); //should return about 0 for 0 followers and 255 for 4million (Ashton Kutchner? Obama?)
 		return 'rgb('+rgb+',0,0)';
+}
+
+function getSentimentColor(text){
+		if(text === "positive") {
+                    color="green";
+                } else if (text === "negative") {
+                    color="red";
+                } else if (text === "neutral") {
+                    color="grey";
+                } else {
+                    color="black";
+                }
+                return color;
 }
 
 function poll(){
