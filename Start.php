@@ -10,6 +10,12 @@
 
 //comma separated values to array
 $postedData = $_POST['trackWords'];
+$currentPid = $_POST['pid'];
+
+if($currentPid != null) {
+    exec("kill $currentPid");
+}
+
 $trackWords = explode(",", $postedData);
 
 //execute the php script sending a serialized array of the trackwords
