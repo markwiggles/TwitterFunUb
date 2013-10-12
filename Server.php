@@ -1,7 +1,7 @@
 <?php
 
 //We are going to need a database connection:
-$db = mysql_connect('localhost', 'twitter_alerts', 'pass');
+$db = mysql_connect('localhost', 'root', 'newpwd');
 mysql_select_db('twitter_alerts', $db);
 //Now, two possibilities: if we don't have a start parameter, we print the last ten tweets.
 //Otherwise, we print all the tweets with IDs bigger than start, if any

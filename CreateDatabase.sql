@@ -7,6 +7,7 @@ screen_name VARCHAR( 255 ) NOT NULL ,
 profile_image_url VARCHAR( 255 ) NOT NULL ,
 followers_count INT NOT NULL ,
 created_at DATETIME NOT NULL ,
+sentiment VARCHAR( 150 ) NOT NULL ,
 PRIMARY KEY ( 'id' )
 ) ENGINE = InnoDB;
 
