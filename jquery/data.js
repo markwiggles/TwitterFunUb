@@ -50,3 +50,30 @@ $(document).ready(function() {
         });
     });
 });
+
+$(document).ready(function() {
+    window.onbeforeunload = function() {
+        close();
+        return "ALERT  stopped - please restart or ";
+    };
+});
+
+function close() {
+
+    var values = 'stop=' + pid;
+
+    $.ajax({
+        url: 'Stop.php',
+        method: 'post',
+        data: values
+    }).success(function(response) {
+        alert(response);
+        console.log("closing");
+    }).fail(function() {
+        // Whoops; show an error.
+        alert("oops didn't stop for some reason");
+    });
+
+}
+
+

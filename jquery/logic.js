@@ -32,6 +32,7 @@ function renderTweet(item){
 		+'</span><span class="created_at"><br /><a href="http://twitter.com/'+
 		item.screen_name+'/status/'+item.id+'">'+
 		item.created_at+'</a></span>'+ '<span class="sentiment"><br /><br /><b>Sentiment Analysis: </b><p style="color:'+sentimentColor+'">'+item.sentiment+'</p></span></div>';
+
 }
 
 function getImportanceColor(number){

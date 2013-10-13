@@ -14,18 +14,28 @@ body{
     background-color:#ccccff;
     font-family: georgia, serif;
 }
+form {
+    display: inline;
+}
 .hidden{
     height:0px;
     overflow:hidden;
 }
-#tweets, #header {
-    margin:0 auto;
-    width:400px;
-}
+
 #tweets div{
     border:1px solid silver;
     margin:5px;
     padding:5px;
     background-color:#fff;
+}
+
+#chart1 {
+    width: 300px;
+    height: 250px;
+}
+
+#chart2 {
+    width: 600px;
+    height: 300px;
 }
 
