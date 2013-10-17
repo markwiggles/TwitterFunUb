@@ -79,7 +79,7 @@ function updateStartValue ($client, $startValue) {
     'AttributeUpdates' => array(
         'value' => array(
             'Action' => 'PUT',
-            'Value' => array('N' => '3')
+            'Value' => array('N' => $startValue)
         )
     ),
     'ReturnValues' => 'ALL_NEW'
