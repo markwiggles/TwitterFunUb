@@ -18,7 +18,7 @@ foreach ($result['Items'] as $item) {
     // Do something with the $item
     //var_dump($item);
     //echo $item->text;
-    echo $item['text']['S'];
-    echo $item['followers_count']['N'];
+    echo $item['text']['S']." ";
+    echo $item['followers_count']['N']."<br>";
 }
 ?>
