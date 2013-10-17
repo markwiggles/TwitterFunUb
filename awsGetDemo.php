@@ -45,7 +45,44 @@ echo $result2['Item']['text']['S'] . " ";
 
 //BATCH GET ITEM
 
-$keyValues = array(array('1201','1381803059'), array('1201','1381803212'));
+$keyValues = array('0','1','2','3','4','5','6','7','8','9',);
+
+$tableName = 'tweets7';
+$keys = array();
+
+        
+// Given that $keyValues contains a list of your hash and range keys:
+//     array(array(<hash>, <range>), ...)
+// Build the array for the "Keys" parameter
+
+
+foreach ($keyValues as $values) {
+    
+    list($hashKeyValue) = $values;
+    
+    $keys[] = array(
+        'id' => array('N' => $hashKeyValue),
+    );
+}
+
+// Get multiple items by key in a BatchGetItem request
+$resultB = $client->batchGetItem(array(
+    'RequestItems' => array(
+        $tableName => array(
+            'Keys' => $keys,
+            'ConsistentRead' => true
+        )
+    )
+        ));
+$items = $resultB->getPath("Responses/{$tableName}");
+
+var_dump($items);
+
+
+
+
+?>
+<!--$keyValues = array(array('1201','1381803059'), array('1201','1381803212'));
 
 $tableName = 'errors';
 $keys = array();
@@ -77,5 +114,4 @@ $resultB = $client->batchGetItem(array(
         ));
 $items = $resultB->getPath("Responses/{$tableName}");
 
-var_dump($items);
-?>
+var_dump($items);-->
