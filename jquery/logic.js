@@ -1,4 +1,4 @@
-var last = '';
+last = '';
 var timeOut;
 
 function getTweets(id) {
@@ -60,5 +60,5 @@ function poll() {
 }
 
 $(document).ready(function() {
-    poll();
+    //poll();
 });

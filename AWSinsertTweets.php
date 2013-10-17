@@ -15,7 +15,7 @@ use Aws\DynamoDb\DynamoDbClient;
 // Configure  Datumbox API Key. 
 define('DATUMBOX_API_KEY', '78006b9cafa5dbd4f0b57f6ae0c897d7');
 
-function storeTweetsInDatabase($tweet, $id) {
+function storeTweetsInDatabase($tweet, $lastId) {
 
     //the client connection
     $client = DynamoDbClient::factory(array(
@@ -23,6 +23,8 @@ function storeTweetsInDatabase($tweet, $id) {
                 'secret' => 'ZL/y/465lJ3L0wO8S0Wobu2MBKMSmkz4+4Osvw3v',
                 'region' => 'us-west-2'
     ));
+    
+    $id = $lastId;
 
     //Clean the inputs before storing
     $twitterId = mysql_real_escape_string($tweet->{'id'});
@@ -65,26 +67,7 @@ function storeTweetsInDatabase($tweet, $id) {
     flush();
 }
 
-/*
- * Func
- */
 
-function updateStartValue ($client, $startValue) {
-    
-    $result = $client->updateItem(array(
-    'TableName' => 'start_value',
-    'Key' => array(
-        'start' => array('S' => 'start')
-    ),
-    'AttributeUpdates' => array(
-        'value' => array(
-            'Action' => 'PUT',
-            'Value' => array('N' => $startValue)
-        )
-    ),
-    'ReturnValues' => 'ALL_NEW'
-        ));
-}
 
 
 ?>

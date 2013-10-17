@@ -33,8 +33,10 @@ $(document).ready(function() {
     $("#stopTweets").submit(function(event) {
 
         event.preventDefault();
+        
+        console.log("last" + last);
 
-        var values = 'stop=' + pid;
+        var values = 'stop=' + pid + "&last=" + last;
 
         console.log(values);
 

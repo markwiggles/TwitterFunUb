@@ -24,8 +24,7 @@ $client = DynamoDbClient::factory(array(
 if (isset($_GET['start'])) {
     $start = mysql_real_escape_string($_GET['start']);
 } else {
-    $start = 0;
-    //$start = getStartValue($client);
+    $start = getStartValue($client);
 }
 
 //create the key value attributes, based on the start value
@@ -77,7 +76,7 @@ function getTweetsFromAWS($client, $keyValues) {
 function getStartValue($client) {
 
     $result = $client->getItem(array(
-        'TableName' => 'last_start_value',
+        'TableName' => 'start_value',
         'ConsistentRead' => true,
         'Key' => array(
             'id' => array('S' => 'start'),
