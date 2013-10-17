@@ -1,5 +1,12 @@
 <?php
 
+//for testing purposes
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
+error_reporting(E_ALL);
+
+
 require 'AWSSDKforPHP/aws.phar';
 
 use Aws\DynamoDb\DynamoDbClient;
@@ -26,27 +33,34 @@ $time = time();
 //    'ReturnConsumedCapacity' => 'TOTAL'
 //));
 
-$comments = array('good', 'Great', 'FuN', 'NiCE', 'FANtastIC', 'SiLLy', 'OBligatoRY', 'TERRRRific', 'TopS', 'HarD');
-
-for ($i = 0; $i < 10; $i++) {
-
-    $id = $i;
-
-    $result = $client->putItem(array(
-        'TableName' => 'tweets7',
-        'Item' => array(
-            'id' => array('N' => $id),
-            'twitter_id' => array('N' => '388878396089840006'),
-            'created_at' => array('N' => $time),
-            'text' => array('S' => 'life is '. $comments[$i]),
-            'screen_name' => array('S' => 'annjrose'),
-            'profile_image_url' => array('S' => 'http://a0.twimg.com/profile_images/378800000578890'),
-            'followers_count' => array('N' => 121),
-            'sentiment' => array('S' => 'positive')
+$result = $client->updateItem(array(
+    'TableName' => 'start_value',
+    'Key' => array(
+        'start' => array('S' => 'start')
+    ),
+    'AttributeUpdates' => array(
+        'value' => array(
+            'Action' => 'PUT',
+            'Value' => array('N' => '3')
         )
-    ));
-}
+    ),
+    'ReturnValues' => 'ALL_NEW'
+        ));
+
+//$result = $client->putItem(array(
+//    'TableName' => 'last_start_value',
+//    'Item' => array(
+//        'id' => array('N' => $id),
+//        'twitter_id' => array('N' => '388878396089840006'),
+//        'created_at' => array('N' => $time),
+//        'text' => array('S' => 'life is ' . $comments[$i]),
+//        'screen_name' => array('S' => 'annjrose'),
+//        'profile_image_url' => array('S' => 'http://a0.twimg.com/profile_images/378800000578890'),
+//        'followers_count' => array('N' => 121),
+//        'sentiment' => array('S' => 'positive')
+//    )
+//        ));
+
 
 print_r($result);
-
 ?>
