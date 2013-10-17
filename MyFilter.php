@@ -15,7 +15,7 @@ class FilterTrackConsumer extends OauthPhirehose {
      */
     public function enqueueStatus($status) {     
         $tweet = json_decode($status); 
-        storeTweetsInDatabase($tweet); //what we want to do
+        storeTweetsInDatabase($tweet,$id); //what we want to do
         //print $tweet->{'text'}."\n";  //testing only
     }
 }
@@ -35,3 +35,4 @@ $trackWords = unserialize($argv[1]);
 $sc = new FilterTrackConsumer(OAUTH_TOKEN, OAUTH_SECRET, Phirehose::METHOD_FILTER);
 $sc->setTrack($trackWords);
 $sc->consume();
+
