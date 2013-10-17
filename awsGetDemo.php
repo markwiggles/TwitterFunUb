@@ -9,30 +9,31 @@ $client = DynamoDbClient::factory(array(
     'region' => 'us-west-2'
 ));
 
-$result = $client->scan(array(
-    'TableName' => 'tweets',
-));
+//$result = $client->scan(array(
+//    'TableName' => 'tweets'
+//));
+//
+////var_dump($result);
+//foreach ($result['Items'] as $item) {
+//    // Do something with the $item
+//    //var_dump($item);
+//    //echo $item->text;
+//    echo $item['text']['S']." ";
+//    echo $item['followers_count']['N']."<br>";
+//}
 
-//var_dump($result);
-foreach ($result['Items'] as $item) {
-    // Do something with the $item
-    //var_dump($item);
-    //echo $item->text;
-    echo $item['text']['S']." ";
-    echo $item['followers_count']['N']."<br>";
-}
-
-$result = $client->getItem(array(
+$result2 = $client->getItem(array(
+    
     'TableName' => 'tweets',
     'ConsistentRead' => true,
     'Key' => array(
-        'id' => array(TYPE::NUMBER => 388878396089840009)
-    ),
-    'AttributesToGet' => array('text')
+        'id' => array('N' => '388878396089840009'),
+        'created_at' => array('N' => '1381913689' )
+    )
     
 ));
 
-echo $item['text']['S']." ";
+echo $result2['Item']['text']['S']." ";
 
 
 
