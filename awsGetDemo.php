@@ -21,4 +21,19 @@ foreach ($result['Items'] as $item) {
     echo $item['text']['S']." ";
     echo $item['followers_count']['N']."<br>";
 }
+
+$result = $client->getItem(array(
+    'TableName' => 'tweets',
+    'ConsistentRead' => true,
+    'Key' => array(
+        'id' => array(TYPE::NUMBER => 388878396089840009)
+    ),
+    'AttributesToGet' => array('text')
+    
+));
+
+echo $item['text']['S']." ";
+
+
+
 ?>
