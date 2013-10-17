@@ -50,12 +50,7 @@ $keyValues = array('0','1','2','3','4','5','6','7','8','9',);
 $tableName = 'tweets7';
 $keys = array();
 
-        
-// Given that $keyValues contains a list of your hash and range keys:
-//     array(array(<hash>, <range>), ...)
 // Build the array for the "Keys" parameter
-
-
 foreach ($keyValues as $values) {
     
     list($hashKeyValue) = $values;
@@ -83,6 +78,20 @@ foreach ($result as $item) {
     echo $item['text']['S']." ";
     echo $item['followers_count']['N']."<br>";
 }
+
+$data = array(); //Initializing the results array
+
+////iterate through the result, and push items onto an array
+//while ($row = mysql_fetch_assoc($result)) {
+//    array_push($data, $row);
+//}
+////send the result as a JSON array
+//$json = json_encode($data);
+//print $json;
+
+$json = json_encode($result);
+
+print $json;
 
 
 

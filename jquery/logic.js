@@ -2,7 +2,7 @@ var last = '';
 var timeOut;
 
 function getTweets(id) {
-    $.getJSON("Server.php?start=" + id,
+    $.getJSON("AWSgetTweets.php?start=" + id,
             function(data) {
                 $.each(data, function(count, item) {
                     addNew(item);
@@ -21,18 +21,18 @@ function addNew(item) {
 }
 
 function renderTweet(item) {
-    var importanceColor = getImportanceColor(item.followers_count);
-    var sentimentColor = getSentimentColor(item.sentiment);
-    var imageLink = "http://twitter.com/" + item.screen_name;
-    var createdLink = "http://twitter.com/" + item.screen_name + "/status/" + item.id;
+    var importanceColor = getImportanceColor(item.followers_count.N);
+    var sentimentColor = getSentimentColor(item.sentiment.S);
+    var imageLink = "http://twitter.com/" + item.screen_name.S;
+    var createdLink = "http://twitter.com/" + item.screen_name.S + "/status/" + item.id.N;
 
     $("#tweets")
-    .append($("<div>").addClass("tweet").attr("id", item.id)
-    .append($("<img>").attr("src", item.profile_image_url).addClass("image"))
-    .append($("<a>").attr("href", imageLink).append(item.screen_name).attr("style", "color:" + importanceColor))
-    .append($("<p>").append(item.text).addClass("tweetText"))
-    .append($("<p>").append("<br>created at ").append(item.created_at).addClass("created"))
-    .append($("<p>").addClass("sentiment").append("Sentiment Analysis: ").append(item.sentiment).attr("style", "color:" + sentimentColor))
+    .append($("<div>").addClass("tweet").attr("id", item.id.N)
+    .append($("<img>").attr("src", item.profile_image_url.S).addClass("image"))
+    .append($("<a>").attr("href", imageLink).append(item.screen_name.S).attr("style", "color:" + importanceColor))
+    .append($("<p>").append(item.text.S).addClass("tweetText"))
+    .append($("<p>").append("<br>created at ").append(item.created_at.N).addClass("created"))
+    .append($("<p>").addClass("sentiment").append("Sentiment Analysis: ").append(item.sentiment.S).attr("style", "color:" + sentimentColor))
     );
 }
 
