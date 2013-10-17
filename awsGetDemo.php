@@ -59,14 +59,13 @@ $keys = array();
 foreach ($keyValues as $values) {
     
     list($hashKeyValue) = $values;
-    
     $keys[] = array(
         'id' => array('N' => $hashKeyValue),
     );
 }
 
 // Get multiple items by key in a BatchGetItem request
-$resultB = $client->batchGetItem(array(
+$response = $client->batchGetItem(array(
     'RequestItems' => array(
         $tableName => array(
             'Keys' => $keys,
@@ -74,44 +73,17 @@ $resultB = $client->batchGetItem(array(
         )
     )
         ));
-$items = $resultB->getPath("Responses/{$tableName}");
+$result = $response->getPath("Responses/{$tableName}");
 
-var_dump($items);
 
+//var_dump($result);
+
+foreach ($result as $item) {
+    // Do something with the $item
+    echo $item['text']['S']." ";
+    echo $item['followers_count']['N']."<br>";
+}
 
 
 
 ?>
-<!--$keyValues = array(array('1201','1381803059'), array('1201','1381803212'));
-
-$tableName = 'errors';
-$keys = array();
-
-        
-// Given that $keyValues contains a list of your hash and range keys:
-//     array(array(<hash>, <range>), ...)
-// Build the array for the "Keys" parameter
-
-
-foreach ($keyValues as $values) {
-    
-    list($hashKeyValue, $rangeKeyValue) = $values;
-    
-    $keys[] = array(
-        'id' => array('N' => $hashKeyValue),
-        'time' => array('N' => $rangeKeyValue)
-    );
-}
-
-// Get multiple items by key in a BatchGetItem request
-$resultB = $client->batchGetItem(array(
-    'RequestItems' => array(
-        $tableName => array(
-            'Keys' => $keys,
-            'ConsistentRead' => true
-        )
-    )
-        ));
-$items = $resultB->getPath("Responses/{$tableName}");
-
-var_dump($items);-->
