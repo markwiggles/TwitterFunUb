@@ -10,7 +10,6 @@ error_reporting(E_ALL);
 require 'AWSSDKforPHP/aws.phar';
 
 use Aws\DynamoDb\DynamoDbClient;
-
 use Aws\DynamoDb\Enum\ComparisonOperator;
 use Aws\DynamoDb\Enum\Type;
 
@@ -23,29 +22,47 @@ $client = DynamoDbClient::factory(array(
 
 $time = time();
 
-//// Find the number of orders made by customer 941 in the last 10 days
+
 $result = $client->query(array(
-    'TableName'     => 'Orders',
-    'IndexName'     => 'OrderDateIndex',
-    'Select'        => 'COUNT',
+    'TableName' => 'tweets8',
+    'indexId' => 'created_at',
+    'Select' => 'ALL_ATTRIBUTES',
     'KeyConditions' => array(
-        'CustomerId' => array(
+        'indexId' => array(
             'AttributeValueList' => array(
-                array('N' => '941')
-            ),
-            'ComparisonOperator' => 'EQ'
-        ),
-        'OrderDate' => array(
-            'AttributeValueList' => array(
-                array('N' => strtotime("-10 days"))
+                array('N' => '1')
             ),
             'ComparisonOperator' => 'GE'
         )
     )
-));
+        ));
 
 $numOrders = $result['Count'];
 
-print_r ($response['Items']);
+print_r($result['Items']);
 
+//// Find the number of orders made by customer 941 in the last 10 days
+//$result = $client->query(array(
+//    'TableName'     => 'Orders',
+//    'IndexName'     => 'OrderDateIndex',
+//    'Select'        => 'COUNT',
+//    'KeyConditions' => array(
+//        'CustomerId' => array(
+//            'AttributeValueList' => array(
+//                array('N' => '941')
+//            ),
+//            'ComparisonOperator' => 'EQ'
+//        ),
+//        'OrderDate' => array(
+//            'AttributeValueList' => array(
+//                array('N' => strtotime("-10 days"))
+//            ),
+//            'ComparisonOperator' => 'GE'
+//        )
+//    )
+//));
+//
+//$numOrders = $result['Count'];
+//
+//print_r ($result['Items']);
 ?>
