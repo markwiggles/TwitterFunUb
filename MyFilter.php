@@ -2,7 +2,7 @@
 
 require_once('lib/Phirehose.php');
 require_once('lib/OauthPhirehose.php');
-require_once('DbTweet.php');
+require_once('AWSinsertTweets.php');
 
 /**
  * class using Phirehose to display a live filtered stream using track words 
@@ -14,9 +14,11 @@ class FilterTrackConsumer extends OauthPhirehose {
      * @param string $status
      */
     public function enqueueStatus($status) {     
-        $tweet = json_decode($status); 
-        storeTweetsInDatabase($tweet,$id); //what we want to do
-        //print $tweet->{'text'}."\n";  //testing only
+        
+        $tweet = json_decode($status);
+        
+        storeTweetsInDatabase($tweet); //what we want to do
+        print $tweet->{'text'}."\n";  //testing only
     }
 }
 
@@ -28,8 +30,8 @@ define("OAUTH_TOKEN", "543781426-Q2Y6IugeGaoA9tGh5PrpkPH00MFtQ2PbqsiVHRN6");
 define("OAUTH_SECRET", "hVNkoq7IbpzmD3wi57gF2tUU8bbgZ3Kv9wKJ2JPk2o");
 
 //gets the trackwords from the command live ie the exec command in Start.php
-$trackWords = unserialize($argv[1]);
-//$trackWords = array('justin bieber'); //testing only ie no-one more popular than Justin is there?
+//$trackWords = unserialize($argv[1]);
+$trackWords = array('justin bieber'); //testing only ie no-one more popular than Justin is there?
 
 // Create the stream object from above class and start streaming
 $sc = new FilterTrackConsumer(OAUTH_TOKEN, OAUTH_SECRET, Phirehose::METHOD_FILTER);

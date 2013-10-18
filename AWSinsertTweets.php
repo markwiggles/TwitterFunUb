@@ -15,7 +15,7 @@ use Aws\DynamoDb\DynamoDbClient;
 // Configure  Datumbox API Key. 
 define('DATUMBOX_API_KEY', '78006b9cafa5dbd4f0b57f6ae0c897d7');
 
-function storeTweetsInDatabase($tweet, $lastId) {
+function storeTweetsInDatabase($tweet) {
 
     //the client connection
     $client = DynamoDbClient::factory(array(
@@ -23,8 +23,11 @@ function storeTweetsInDatabase($tweet, $lastId) {
                 'secret' => 'ZL/y/465lJ3L0wO8S0Wobu2MBKMSmkz4+4Osvw3v',
                 'region' => 'us-west-2'
     ));
+
+    //get lastId from database initially then keep adding 1
     
-    $id = $lastId;
+   $id = rand(10,100000);
+  
 
     //Clean the inputs before storing
     $twitterId = mysql_real_escape_string($tweet->{'id'});
@@ -34,40 +37,43 @@ function storeTweetsInDatabase($tweet, $lastId) {
     $followers_count = mysql_real_escape_string($tweet->{'user'}->{'followers_count'});
 
     //the created_at time
-    $time = time();
+    $created_at = time();
 
     //get the sentiment 
     $TwitterSentimentAnalysis = new TwitterSentimentAnalysis(DATUMBOX_API_KEY);
-    $sentiment = $TwitterSentimentAnalysis->sentimentAnalysis($text);
+    $sentiment = 'positive';//$TwitterSentimentAnalysis->sentimentAnalysis($text);
 
     //We store the new post in the database, to be able to read it later
-    $ok = mysql_query("INSERT INTO tweets (id ,text ,screen_name ,profile_image_url, followers_count, created_at, sentiment) VALUES ('$id', '$text', '$screen_name', '$profile_image_url', '$followers_count', NOW(), '$sentiment')");
-    if (!$ok) {
-        echo "Mysql Error: " . mysql_error();
-    }
-
     //insert into AWS dynamoDb
     $result = $client->putItem(array(
         'TableName' => 'tweets7',
         'Item' => array(
             'id' => array('N' => $id),
             'twitter_id' => array('N' => $twitterId),
-            'created_at' => array('N' => $time),
+            'created_at' => array('N' => $created_at ),
             'text' => array('S' => $text),
             'screen_name' => array('S' => $screen_name),
             'profile_image_url' => array('S' => $profile_image_url),
             'followers_count' => array('N' => $followers_count),
             'sentiment' => array('S' => $sentiment)
-        )
+            ),
     ));
-
-
-    print_r($result);
 
     flush();
 }
 
+    //function to get the start value
+    function getStartValue($client) {
 
+        $result = $client->getItem(array(
+            'TableName' => 'start_value',
+            'ConsistentRead' => true,
+            'Key' => array(
+                'id' => array('S' => 'start'),
+            )
+        ));
 
+        return $result['Item']['value']['N'];
+    }
 
 ?>
