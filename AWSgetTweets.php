@@ -22,18 +22,14 @@ $client = DynamoDbClient::factory(array(
 
 //get the start value which has been sent by the ajax method
 if (isset($_GET['start'])) {
-    $start = mysql_real_escape_string($_GET['start']);
+    $start = time();
+    //$start = mysql_real_escape_string($_GET['start']);
 } else {
-    $start = getStartValue($client);
+    $start = time();
 }
 
-//create the key value attributes, based on the start value
-$keyValues = array();
-for ($i = 0; $i < 10; $i++) {
-    array_push($keyValues, "'" . $start + $i . "'");
-}
 
-getTweetsFromAWS($client, $keyValues);
+getTweetsFromAWS($client, $start);
 
 
 /*
@@ -41,34 +37,32 @@ getTweetsFromAWS($client, $keyValues);
  * else defaults to the last start value - ir the last tweet in the database
  */
 
-function getTweetsFromAWS($client, $keyValues) {
+function getTweetsFromAWS($client, $start_value) {
 
-    $tableName = 'tweets7';
-    $keys = array();
+    $tableName = 'tweets';
 
-// Build the array for the "Keys" parameter
-    foreach ($keyValues as $values) {
-
-        list($hashKeyValue) = $values;
-        $keys[] = array(
-            'id' => array('N' => $hashKeyValue),
-        );
-    }
-
-// Get multiple items by key in a BatchGetItem request
-    $response = $client->batchGetItem(array(
-        'RequestItems' => array(
-            $tableName => array(
-                'Keys' => $keys,
-                'ConsistentRead' => true
+    $result = $client->query(array(
+        'TableName' => $tableName,
+        'Limit' => 10,
+        'KeyConditions' => array(
+            'indexId' => array(
+                'AttributeValueList' => array(
+                    array('N' => 1000)
+                ),
+                'ComparisonOperator' => 'EQ'
+                
+            ),
+            'rangeId' => array(
+                'AttributeValueList' => array(
+                    array('N' => $start_value)
+                ),
+                'ComparisonOperator' => 'LT'
             )
         )
     ));
 
-    $result = $response->getPath("Responses/{$tableName}");
-
     //send the json file out
-    $json = json_encode($result);
+    $json = json_encode($result['Items']);
     print $json;
 }
 

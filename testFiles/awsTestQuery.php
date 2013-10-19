@@ -20,26 +20,30 @@ $client = DynamoDbClient::factory(array(
             'region' => 'us-west-2'
         ));
 
-$time = time();
-
+$tableName = 'tweets10';
+$start_value = '1';
 
 $result = $client->query(array(
-    'TableName' => 'tweets8',
-    'indexId' => 'created_at',
-    'Select' => 'ALL_ATTRIBUTES',
+    'TableName'     => $tableName,
     'KeyConditions' => array(
-        'indexId' => array(
+        'twitter_id' => array(
             'AttributeValueList' => array(
-                array('N' => '1')
+                array('N' => '1000')
+            ),
+            'ComparisonOperator' => 'EQ'
+        ),
+        'created_at' => array(
+            'AttributeValueList' => array(
+                array('N' => $start_value)
             ),
             'ComparisonOperator' => 'GE'
         )
     )
-        ));
+));
 
-$numOrders = $result['Count'];
-
-print_r($result['Items']);
+    //send the json file out
+    $json = json_encode($result['Items']);
+    print $json;
 
 //// Find the number of orders made by customer 941 in the last 10 days
 //$result = $client->query(array(

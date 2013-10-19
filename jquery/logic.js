@@ -6,7 +6,8 @@ function getTweets(id) {
             function(data) {
                 $.each(data, function(count, item) {
                     addNew(item);
-                    last = item.id;
+                    last = item.rangeId.N;
+                    console.log(item.rangeId.N);
                 });
             });
 }
@@ -24,10 +25,10 @@ function renderTweet(item) {
     var importanceColor = getImportanceColor(item.followers_count.N);
     var sentimentColor = getSentimentColor(item.sentiment.S);
     var imageLink = "http://twitter.com/" + item.screen_name.S;
-    var createdLink = "http://twitter.com/" + item.screen_name.S + "/status/" + item.id.N;
+    var createdLink = "http://twitter.com/" + item.screen_name.S + "/status/" + item.rangeId.N;
 
     $("#tweets")
-    .append($("<div>").addClass("tweet").attr("id", item.id.N)
+    .append($("<div>").addClass("tweet").attr("id", item.indexId.N)
     .append($("<img>").attr("src", item.profile_image_url.S).addClass("image"))
     .append($("<a>").attr("href", imageLink).append(item.screen_name.S).attr("style", "color:" + importanceColor))
     .append($("<p>").append(item.text.S).addClass("tweetText"))

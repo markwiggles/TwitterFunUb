@@ -26,7 +26,7 @@ function storeTweetsInDatabase($tweet) {
 
     //get lastId from database initially then keep adding 1
     
-   $id = rand(10,100000);
+   
   
 
     //Clean the inputs before storing
@@ -36,8 +36,12 @@ function storeTweetsInDatabase($tweet) {
     $profile_image_url = mysql_real_escape_string($tweet->{'user'}->{'profile_image_url'});
     $followers_count = mysql_real_escape_string($tweet->{'user'}->{'followers_count'});
 
-    //the created_at time
+    //idexId and the created_at time
+    $indexId = 1000;
+    $rangeId = time();
     $created_at = time();
+    
+    $tableName = 'tweets';
 
     //get the sentiment 
     $TwitterSentimentAnalysis = new TwitterSentimentAnalysis(DATUMBOX_API_KEY);
@@ -46,9 +50,10 @@ function storeTweetsInDatabase($tweet) {
     //We store the new post in the database, to be able to read it later
     //insert into AWS dynamoDb
     $result = $client->putItem(array(
-        'TableName' => 'tweets7',
+        'TableName' => $tableName,
         'Item' => array(
-            'id' => array('N' => $id),
+            'indexId' => array('N' => $indexId),
+            'rangeId' => array('N' => $rangeId),
             'twitter_id' => array('N' => $twitterId),
             'created_at' => array('N' => $created_at ),
             'text' => array('S' => $text),
