@@ -47,18 +47,20 @@ function getTweetsFromAWS($client, $start_value) {
         'KeyConditions' => array(
             'indexId' => array(
                 'AttributeValueList' => array(
-                    array('N' => 1000)
+                    array('S' => 'tweets')
                 ),
                 'ComparisonOperator' => 'EQ'
-                
             ),
+
             'rangeId' => array(
                 'AttributeValueList' => array(
-                    array('N' => $start_value)
+                    array('N' => $start_value),
+                    
                 ),
                 'ComparisonOperator' => 'LT'
             )
-        )
+        ),
+        'ScanIndexForward' => false
     ));
 
     //send the json file out

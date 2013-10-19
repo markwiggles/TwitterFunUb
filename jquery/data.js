@@ -12,6 +12,8 @@ $(document).ready(function() {
         event.preventDefault();
 
         var values = $(this).serialize();
+        
+        poll();
 
         $.ajax({
             url: 'Start.php',
@@ -22,7 +24,7 @@ $(document).ready(function() {
             pid = response;
         }).fail(function() {
             // Whoops; show an error.
-            alert("oops nothing happening here");
+            //alert("oops nothing happening here");
         });
     });
 });
@@ -33,6 +35,8 @@ $(document).ready(function() {
     $("#stopTweets").submit(function(event) {
 
         event.preventDefault();
+        
+        clearTimeout(timeOut); 
         
         console.log("last" + last);
 
@@ -48,7 +52,7 @@ $(document).ready(function() {
             alert(response);
         }).fail(function() {
             // Whoops; show an error.
-            alert("oops didn't stop for some reason");
+            //alert("oops didn't stop for some reason");
         });
     });
 });
@@ -73,7 +77,7 @@ function close() {
         console.log("closing");
     }).fail(function() {
         // Whoops; show an error.
-        alert("oops didn't stop for some reason");
+        //alert("oops didn't stop for some reason");
     });
 
 }

@@ -1,5 +1,5 @@
 last = '';
-var timeOut;
+timeOut;
 
 function getTweets(id) {
     $.getJSON("AWSgetTweets.php?start=" + id,
@@ -14,7 +14,7 @@ function getTweets(id) {
 
 function addNew(item) {
     if ($('#tweets div.tweet').length > 9) { //If we have more than nine tweets
-        $('#tweets div.tweet:first').toggle(300);//remove it form the screen
+        $('#tweets div.tweet:first').toggle(500);//remove it form the screen
         $('#tweets div.tweet:first').removeClass('tweet');//and it's class
         $("#tweets div:hidden").remove(); //sweeps the already hidden elements
     }
@@ -32,7 +32,7 @@ function renderTweet(item) {
     .append($("<img>").attr("src", item.profile_image_url.S).addClass("image"))
     .append($("<a>").attr("href", imageLink).append(item.screen_name.S).attr("style", "color:" + importanceColor))
     .append($("<p>").append(item.text.S).addClass("tweetText"))
-    .append($("<p>").append("<br>created at ").append(item.created_at.N).addClass("created"))
+    .append($("<p>").append("<br>created ").append(item.created_at.S).addClass("created"))
     .append($("<p>").addClass("sentiment").append("Sentiment Analysis: ").append(item.sentiment.S).attr("style", "color:" + sentimentColor))
     );
 }
@@ -56,10 +56,10 @@ function getSentimentColor(text) {
 }
 
 function poll() {
-    timeOut = setTimeout('poll()', 800);//It calls itself every 200ms
+    timeOut = setTimeout('poll()', 300);//It calls itself every 200ms
     getTweets(last);
 }
 
 $(document).ready(function() {
-    //poll();
+    
 });
