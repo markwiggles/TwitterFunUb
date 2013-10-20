@@ -61,5 +61,5 @@ function poll() {
 }
 
 $(document).ready(function() {
-    
+    poll();
 });

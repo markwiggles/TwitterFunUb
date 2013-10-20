@@ -10,10 +10,9 @@ $(document).ready(function() {
     $("#trackInput").submit(function(event) {
 
         event.preventDefault();
+        
 
         var values = $(this).serialize();
-        
-        poll();
 
         $.ajax({
             url: 'Start.php',
@@ -35,8 +34,6 @@ $(document).ready(function() {
     $("#stopTweets").submit(function(event) {
 
         event.preventDefault();
-        
-        clearTimeout(timeOut); 
         
         console.log("last" + last);
 

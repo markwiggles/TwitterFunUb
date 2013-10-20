@@ -534,3 +534,29 @@ Stack trace:
 
 [19-Oct-2013 03:50:06 UTC] Phirehose: 
 
+[19-Oct-2013 23:54:42 UTC] Phirehose: Connecting to twitter stream: https://stream.twitter.com/1.1/statuses/filter.json with params: array (  'delimited' => 'length',  'track' => 'justin bieber',)
+[19-Oct-2013 23:54:42 UTC] Phirehose: Resolved host stream.twitter.com to 199.59.148.138, 199.59.148.229
+[19-Oct-2013 23:54:42 UTC] Phirehose: Connecting to ssl://199.59.148.138, port=443, connectTimeout=5
+[19-Oct-2013 23:54:43 UTC] Phirehose: Connection established to 199.59.148.138
+[19-Oct-2013 23:54:43 UTC] Phirehose: POST /1.1/statuses/filter.json HTTP/1.0
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: Host: stream.twitter.com:443
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: Content-type: application/x-www-form-urlencoded
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: Content-length: 38
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: Accept: */*
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: Authorization: OAuth realm="",oauth_consumer_key="svZXJI1VwflpveNZcLKgw",oauth_nonce="62370ecd4541703fe0ba51d29f96f1a4",oauth_signature_method="HMAC-SHA1",oauth_timestamp="1382226883",oauth_version="1.0",oauth_token="543781426-Q2Y6IugeGaoA9tGh5PrpkPH00MFtQ2PbqsiVHRN6",oauth_signature="Z945vZVGN5j1VIlij1Witfv7q4g%3D"
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: User-Agent: Phirehose/0.2.gitmaster +https://github.com/fennb/phirehose
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: 
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: delimited=length&track=justin%20bieber
+
+[19-Oct-2013 23:54:43 UTC] Phirehose: 
+
+[20-Oct-2013 00:02:12 UTC] PHP Notice:  Undefined offset: 1 in /home/mark/TwitterFun/MyFilter.php on line 33
+[20-Oct-2013 00:02:12 UTC] PHP Catchable fatal error:  Argument 1 passed to Phirehose::setTrack() must be of the type array, boolean given, called in /home/mark/TwitterFun/MyFilter.php on line 38 and defined in /home/mark/TwitterFun/lib/Phirehose.php on line 208
