@@ -25,11 +25,11 @@ function storeTweetsInDatabase($tweet) {
     ));
 
     //Clean the inputs before storing
-    $twitterId = mysql_real_escape_string($tweet->{'id'});
-    $text = mysql_real_escape_string($tweet->{'text'});
-    $screen_name = mysql_real_escape_string($tweet->{'user'}->{'screen_name'});
-    $profile_image_url = mysql_real_escape_string($tweet->{'user'}->{'profile_image_url'});
-    $followers_count = mysql_real_escape_string($tweet->{'user'}->{'followers_count'});
+    $twitterId = addslashes($tweet->{'id'});
+    $text = addslashes($tweet->{'text'});
+    $screen_name = addslashes($tweet->{'user'}->{'screen_name'});
+    $profile_image_url = addslashes($tweet->{'user'}->{'profile_image_url'});
+    $followers_count = addslashes($tweet->{'user'}->{'followers_count'});
 
     //idexId and the created_at time
     $indexId = 'tweets';
@@ -40,7 +40,7 @@ function storeTweetsInDatabase($tweet) {
 
     //get the sentiment 
     $TwitterSentimentAnalysis = new TwitterSentimentAnalysis(DATUMBOX_API_KEY);
-    $sentiment = $TwitterSentimentAnalysis->sentimentAnalysis($text);
+    $sentiment = addslashes($TwitterSentimentAnalysis->sentimentAnalysis($text));
 
     //We store the new post in the database, to be able to read it later
     //insert into AWS dynamoDb
