@@ -68,18 +68,5 @@ function getTweetsFromAWS($client, $start_value) {
     print $json;
 }
 
-//function to get the start value
-function getStartValue($client) {
-
-    $result = $client->getItem(array(
-        'TableName' => 'start_value',
-        'ConsistentRead' => true,
-        'Key' => array(
-            'id' => array('S' => 'start'),
-        )
-    ));
-
-    return $result['Item']['value']['N'];
-}
 
 ?>
